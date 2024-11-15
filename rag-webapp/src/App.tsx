@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from './components/log-interface/header/header';
+import logo from './logo.svg';
 import './App.css';
+import {Main} from "./components/main-interface/Main";
 
 function App() {
   return (
-    <Header/>
+    <Main/>
   );
 }
 
