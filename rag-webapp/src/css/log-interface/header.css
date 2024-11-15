@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 80px;
+    border-bottom: 2px solid #000000;
+    background-color: white;
+}
+
+.logo-RAGAdmin, .logo-la-poste {
+    width: 150px;
+    height: auto;
+    padding: 30px;
+}
