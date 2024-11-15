@@ -1,21 +1,32 @@
-.Header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #f9f9f9;
-    border-bottom: 1px solid #e0e0e0;
+    height: 80px;
+    border-bottom: 2px solid #000000;
+    background: white;
 }
 
-.Header img {
+.logo-RAGAdmin, .logo-la-poste {
     display: inline;
-    height: 50px;
+    width: 150px;
+    height: auto;
 }
 
 .user-info {
+    padding-left: 20px;
     display: flex;
     align-items: center;
+    height: 90%;
+    width: 12%;
+    border-left: 2px solid #000000;
     gap: 10px;
+}
+
+.user-detail {
+    display: flex;
+    flex-direction: column;
 }
 
 .user-info img {
@@ -25,8 +36,16 @@
     border: 1px solid #ddd;
 }
 
-.user-info span {
+.user-span {
     font-size: 14px;
     font-weight: 500;
-    color: #333;
+    color: black;
+    display: block;
+}
+
+.state-span {
+    font-size: 14px;
+    font-weight: 500;
+    color: grey;
+    display: block;
 }
