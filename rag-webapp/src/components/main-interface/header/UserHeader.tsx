@@ -1,14 +1,14 @@
 import React from "react";
 // @ts-ignore
-import styles from "../../../css/main-interface/header.css";
+import "../../../css/main-interface/header.css";
 
 export function UserHeader() {
     return (
-        <div className={styles.userInfo}>
-            <img src={"https://via.placeholder.com/30"} alt="user-avatar" />
-            <div>
-                <span>Utilisateur</span>
-                <span>Connecté</span>
+        <div className="user-info">
+            <img className="avatar-img" src={"https://via.placeholder.com/30"} alt="user-avatar" />
+            <div className="user-details">
+                <span className="user-span">User</span>
+                <span className="state-span">State</span>
             </div>
         </div>
     );
