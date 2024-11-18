@@ -1,7 +1,7 @@
 import React from 'react';
-import ragadminLogo from "../../../res/ragadmin-final.png"
-import laPosteLogo from "../../../res/laposte-logo.png"
-import '../../../css/log-interface/header.css';
+import ragadminLogo from "../../res/ragadmin-final.png"
+import laPosteLogo from "../../res/laposte-logo.png"
+import '../../css/log-interface/header.css';
 
 const Header: React.FC = () => {
     return(
