@@ -1,6 +1,20 @@
+.main-container {
+    display: flex;
+    height: calc(100% - 80px);
+    background-color: white;
+}
+
 .left-side{
     float: left;
     width: 30%;
     border-right: black solid 2px;
     padding: 2%;
 }
+
+.right-side {
+    width: 70%;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
