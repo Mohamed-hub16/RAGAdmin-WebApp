@@ -1,5 +1,6 @@
 import Header from "./header/Header";
 import {Prompt} from "./prompt/prompt";
+import "../../css/main-interface/main.css";
 import {Historical} from "./historical/Historical";
 
 import "../../css/main-interface/main.css"
