@@ -20,7 +20,10 @@ export function Historical() {
 
     return (
         <div className="historical-container">
-            <h4 className="historical-h4">Historique des demandes</h4>
+            <div className="historical-header">
+                <h4 className="historical-h4">Historique des demandes</h4>
+                <button className="new-chat-button">Nouveau chat</button>
+            </div>
             <div className="historical-chats">
                 {chats.map((chat, index) => (
                     <div
