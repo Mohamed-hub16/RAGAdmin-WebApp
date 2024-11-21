@@ -6,6 +6,7 @@
 
 .left-side{
     float: left;
+    height: 100%;
     width: 30%;
     border-right: black solid 2px;
     padding: 2%;
@@ -13,7 +14,7 @@
 
 .right-side {
     width: 70%;
-    overflow: hidden;
+    height: 100%;
     flex-direction: column;
     justify-content: space-between;
 }

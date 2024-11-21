@@ -5,27 +5,43 @@ export function Prompt() {
     return (
         <div className="chat-container">
             <div className="chat-messages">
-                <div className="message bot-message">
-                    Il fait froid aujourd’hui.
-                </div>
                 <div className="message user-message">
-                    Quel temps fait-il ?
-                </div>
-                <div className="message bot-message">
-                    Il fait froid aujourd’hui.
-                </div>
-                <div className="message user-message">
-                    Quel temps fait-il ?
+                    Quel temps fait-il ? 1
                 </div>
                 <div className="message bot-message">
                     Il fait froid aujourd’hui.
                 </div>
                 <div className="message user-message">
-                    Quel temps fait-il ?
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam id ex tincidunt condimentum. Mauris quis urna urna. Integer imperdiet egestas mauris ut maximus. Pellentesque imperdiet nibh ex, quis tincidunt dui mattis ultricies. Donec vel eros a velit egestas maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam a interdum lorem.
                 </div>
-
+                <div className="message bot-message">
+                    Il fait froid aujourd’hui.
+                </div>
+                <div className="message user-message">
+                    Quel temps fait-il ? 3
+                </div>
+                <div className="message bot-message">
+                    Il fait froid aujourd’hui.
+                </div>
+                <div className="message user-message">
+                    Quel temps fait-il ? 4
+                </div>
+                <div className="message bot-message">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec diam id ex tincidunt condimentum. Mauris quis urna urna. Integer imperdiet egestas mauris ut maximus. Pellentesque imperdiet nibh ex, quis tincidunt dui mattis ultricies. Donec vel eros a velit egestas maximus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam a interdum lorem.
+                </div>
+                <div className="message user-message">
+                    Quel temps fait-il ? 5
+                </div>
+                <div className="message bot-message">
+                    Il fait froid aujourd’hui.
+                </div>
+                <div className="message user-message">
+                    Quel temps fait-il ? 6
+                </div>
+                <div className="message bot-message">
+                    Il fait froid aujourd’hui.
+                </div>
             </div>
-
             <div className="chat-input">
                 <input
                     type="text"
