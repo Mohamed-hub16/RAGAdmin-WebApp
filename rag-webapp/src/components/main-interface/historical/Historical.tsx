@@ -10,6 +10,13 @@ export function Historical() {
         "Bug dans le formulaire",
         "Données manquantes dans le tableau",
         "Problème sur le scanneur de QRCode",
+        "Problème sur le scanneur de QRCode",
+        "Erreur de connexion réseau",
+        "Impossible de lancer l'application",
+        "Bug dans le formulaire",
+        "Données manquantes dans le tableau",
+        "Problème sur le scanneur de QRCode",
+
     ];
 
     const [activeChatIndex, setActiveChatIndex] = useState<number | null>(null);
