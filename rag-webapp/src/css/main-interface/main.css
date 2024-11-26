@@ -1,6 +1,23 @@
+.main-container {
+    display: flex;
+    height: calc(100% - 80px);
+    background-color: white;
+}
+
 .left-side{
-    float: left;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 163px);
     width: 30%;
     border-right: black solid 2px;
     padding: 2%;
+    overflow: hidden;
 }
+
+.right-side {
+    width: 70%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+

@@ -10,6 +10,13 @@ export function Historical() {
         "Bug dans le formulaire",
         "Données manquantes dans le tableau",
         "Problème sur le scanneur de QRCode",
+        "Problème sur le scanneur de QRCode",
+        "Erreur de connexion réseau",
+        "Impossible de lancer l'application",
+        "Bug dans le formulaire",
+        "Données manquantes dans le tableau",
+        "Problème sur le scanneur de QRCode",
+
     ];
 
     const [activeChatIndex, setActiveChatIndex] = useState<number | null>(null);
@@ -20,7 +27,10 @@ export function Historical() {
 
     return (
         <div className="historical-container">
-            <h4 className="historical-h4">Historique des demandes</h4>
+            <div className="historical-header">
+                <h4 className="historical-h4">Historique des demandes</h4>
+                <button className="new-chat-button">Nouveau chat</button>
+            </div>
             <div className="historical-chats">
                 {chats.map((chat, index) => (
                     <div

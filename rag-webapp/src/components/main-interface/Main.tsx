@@ -1,15 +1,21 @@
 import Header from "./header/Header";
-import {Alerts} from "./alerts/Alerts";
-import "../../css/main-interface/main.css"
+import {Prompt} from "./prompt/prompt";
+import "../../css/main-interface/main.css";
 import {Historical} from "./historical/Historical";
+
+import "../../css/main-interface/main.css"
 
 export function Main() {
     return (
         <>
             <Header/>
-            <div className="left-side">
-                <Alerts/>
-                <Historical/>
+            <div className="main-container">
+                <div className="left-side">
+                    <Historical/>
+                </div>
+                <div className="right-side">
+                    <Prompt/>
+                </div>
             </div>
         </>
     );
