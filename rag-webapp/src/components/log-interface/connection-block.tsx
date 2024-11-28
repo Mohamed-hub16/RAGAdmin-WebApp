@@ -5,6 +5,10 @@ import '../../css/log-interface/connection.css';
 const ConnectionBlock: React.FC = () => {
     const navigate = useNavigate();
 
+    const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        navigate('/Register')
+    }
     const handleConnection = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         navigate('/RAGAdmin');
@@ -24,7 +28,7 @@ const ConnectionBlock: React.FC = () => {
                     </div>
                     <button className="button-connection" onClick={handleConnection}>Se Connecter</button>
                 </form>
-                <button className="button-register">S'inscrire</button>
+                <button className="button-register" onClick={handleRegister}>S'inscrire</button>
             </div>
         </div>
 
