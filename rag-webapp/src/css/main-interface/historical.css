@@ -58,17 +58,14 @@
     width: auto;
 }
 
-.new-chat-button:hover,
-.new-chat-button:focus {
+.new-chat-button:hover{
     border-color: rgba(0, 0, 0, 0.15);
     box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
     color: #005DA5;
+    transform: translateY(-1px);
     background-color: #FFCD05;
 }
 
-.new-chat-button:hover {
-    transform: translateY(-1px);
-}
 
 .new-chat-button:active {
     background-color: #F0F0F1;
