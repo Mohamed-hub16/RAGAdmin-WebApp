@@ -1,4 +1,4 @@
-import initDatabase from '../config.js';
+import initDatabase from "../config.js";
 
 export const createUserTable = async () => {
     const db = await initDatabase();
