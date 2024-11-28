@@ -1,8 +1,8 @@
-.connection-div {
+.register-div {
     width: 300px;
     height: 100%;
     border: 2px solid black;
-    
+
 }
 
 .yellow-block{
@@ -17,7 +17,7 @@
 
 }
 
-.h2-connection {
+.h2-register {
     text-decoration: underline;
     text-decoration-color: #FFCD05;
     text-underline-offset: 10px;
@@ -29,7 +29,7 @@
 }
 
 
-.form-connection{
+.form-register{
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
@@ -38,8 +38,10 @@
     border-bottom: 2px solid #FFCD05;
 }
 
-.login-area,
-.password-area {
+.register-id-area,
+.register-password-area,
+.register-password-confirmation-area
+{
     width: 100%;
     resize: none;
     border-radius: 10px;
@@ -53,40 +55,7 @@
     border: 2px solid #000000;
 }
 
-
-
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.checkbox-container input[type="checkbox"] {
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-}
-
-.checkbox-container label {
-    font-size: 15px;
-    cursor: pointer;
-}
-
-.button-connection{
-    height: 35px;
-    border-radius: 8px;
-    background-color: #FFCD05;
-    font-size: 18px;
-    cursor: pointer;
-
-}
-
-.button-connection:hover{
-    background-color: #d9ad01;
-}
-
-.button-register{
+.button-register-completed{
     height: 35px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -98,6 +67,6 @@
     cursor: pointer;
 }
 
-.button-register:hover{
+.button-register-completed:hover{
     background-color: #004175;
 }

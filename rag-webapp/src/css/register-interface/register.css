@@ -1,0 +1,7 @@
+.parent-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    align-items: center;
+
+}
