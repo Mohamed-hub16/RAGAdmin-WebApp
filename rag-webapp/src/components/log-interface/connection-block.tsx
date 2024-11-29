@@ -7,7 +7,6 @@ const ConnectionBlock: React.FC = () => {
 
     const [identifiant, setIdentifiant] = useState('');
     const [password, setPassword] = useState('');
-    const [stayConnected, setStayConnected] = useState(false);
     const [errors, setErrors] = useState<{ identifiant?: string; password?: string }>({});
 
     const handleConnection = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -75,16 +74,6 @@ const ConnectionBlock: React.FC = () => {
                         />
                         {errors.identifiant && <p className="error-message">{errors.identifiant}</p>}
                         {errors.password && <p className="error-message">{errors.password}</p>}
-                    </div>
-                    <div className="checkbox-container">
-                        <input
-                            type="checkbox"
-                            id="connected"
-                            name="checkbox-connection"
-                            checked={stayConnected}
-                            onChange={(e) => setStayConnected(e.target.checked)}
-                        />
-                        <label htmlFor="connected">Rester connecté</label>
                     </div>
                     <button className="button-connection" onClick={handleConnection}>
                         Se Connecter
