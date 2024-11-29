@@ -44,6 +44,7 @@
     resize: none;
     border-radius: 10px;
     padding-top: 20px;
+    padding-bottom: 10px;
     padding-left: 10px;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
@@ -100,4 +101,8 @@
 
 .button-register:hover{
     background-color: #004175;
+}
+
+.error-message{
+    color: red;
 }

@@ -4,7 +4,7 @@ export const addUser = async (identifiant, password) => {
     const db = await initDatabase();
     const insertSQL = `
     INSERT INTO User (identifiant, password)
-    VALUES (?, ?, ?);
+    VALUES (?, ?);
   `;
 
     try {
