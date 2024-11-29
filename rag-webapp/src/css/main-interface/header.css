@@ -8,7 +8,13 @@
     background: white;
 }
 
-.logo-RAGAdmin, .logo-la-poste {
+.logo-Kamoulox {
+    display: inline;
+    width: 80px !important;
+    height: auto !important;
+}
+
+.logo-RAGAdmin {
     display: inline;
     width: 150px;
     height: auto;
@@ -43,9 +49,20 @@
     display: block;
 }
 
-.state-span {
+.deconnect-span {
     font-size: 14px;
     font-weight: 500;
     color: grey;
     display: block;
+}
+
+.deconnect-span:hover {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c3c3c;
+    cursor: pointer;
+    display: block;
+    text-decoration: underline;
+    text-underline-style: single;
+    text-underline: #3c3c3c;
 }
