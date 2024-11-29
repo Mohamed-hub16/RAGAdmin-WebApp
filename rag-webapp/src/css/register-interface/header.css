@@ -8,7 +8,13 @@
     background: white;
 }
 
-.logo-RAGAdmin, .logo-la-poste {
+.logo-Kamoulox {
+    display: inline;
+    width: 80px !important;
+    height: auto !important;
+}
+
+.logo-RAGAdmin {
     display: inline;
     width: 150px;
     height: auto;
