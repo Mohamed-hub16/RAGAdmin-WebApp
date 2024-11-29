@@ -43,9 +43,19 @@
     display: block;
 }
 
-.state-span {
+.deconnect-span {
     font-size: 14px;
     font-weight: 500;
     color: grey;
     display: block;
+}
+
+.deconnect-span:hover {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3c3c3c;
+    cursor: pointer;
+    display: block;
+    text-underline-style: single;
+    text-underline: #3c3c3c;
 }

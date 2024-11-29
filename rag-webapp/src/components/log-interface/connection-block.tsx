@@ -31,9 +31,7 @@ const ConnectionBlock: React.FC = () => {
             const data = await response.json();
 
             if (response.status === 200) {
-                if (stayConnected) {
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                }
+                localStorage.setItem('user', JSON.stringify(data.user));
 
                 navigate('/RAGAdmin');
             } else {
