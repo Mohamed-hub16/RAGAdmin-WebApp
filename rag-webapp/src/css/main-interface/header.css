@@ -56,6 +56,7 @@
     color: #3c3c3c;
     cursor: pointer;
     display: block;
+    text-decoration: underline;
     text-underline-style: single;
     text-underline: #3c3c3c;
 }
