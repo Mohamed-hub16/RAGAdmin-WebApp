@@ -2,11 +2,23 @@ import React, { useState, useRef, useEffect } from "react";
 import Envoyer from "../../../res/envoyer.png";
 import "../../../css/main-interface/prompt.css";
 
-export function Prompt() {
-    const [messages, setMessages] = useState<{ sender: "user" | "bot"; text: string }[]>([]);
+interface Message {
+    sender: "user" | "bot";
+    text: string;
+}
+
+export function Prompt({
+                           initialMessages,
+                           historicalId,
+                       }: {
+    initialMessages: Message[];
+    historicalId: number | null;
+}) {
+    const [messages, setMessages] = useState<Message[]>(initialMessages || []);
     const [userInput, setUserInput] = useState<string>("");
     const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
@@ -15,25 +27,49 @@ export function Prompt() {
         scrollToBottom();
     }, [messages]);
 
-    const handleSendMessage = () => {
+    useEffect(() => {
+        setMessages(initialMessages || []);
+    }, [initialMessages]);
+
+    const saveMessageToDatabase = async (sender: "user" | "bot", text: string) => {
+        if (!historicalId) return;
+
+        try {
+            const response = await fetch("http://localhost:5000/api/chats/messages", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    historicalId,
+                    sender,
+                    content: text,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors de l'enregistrement du message.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleSendMessage = async () => {
         if (!userInput.trim() || isBotTyping) return;
 
-        setMessages((prevMessages) => [
-            ...prevMessages,
-            { sender: "user", text: userInput },
-        ]);
+        const userMessage = { sender: "user", text: userInput };
+        // @ts-ignore
+        setMessages((prevMessages) => [...prevMessages, userMessage]);
+        await saveMessageToDatabase("user", userInput);
 
         setUserInput("");
-
         setIsBotTyping(true);
 
-        setTimeout(() => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { sender: "bot", text: `${userInput}` },
-            ]);
+        setTimeout(async () => {
+            const botResponse = `Réponse du bot : ${userInput}`;
+            setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: botResponse }]);
+            await saveMessageToDatabase("bot", botResponse);
             setIsBotTyping(false);
-        }, 5000);
+        }, 2000);
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -55,7 +91,7 @@ export function Prompt() {
                         {message.text}
                     </div>
                 ))}
-                <div ref={messagesEndRef} /> {/* Élément invisible pour le scroll automatique */}
+                <div ref={messagesEndRef} />
             </div>
             <div className="chat-input">
                 <input
@@ -65,9 +101,12 @@ export function Prompt() {
                     onKeyPress={handleKeyPress}
                     placeholder="Entrez votre texte ici..."
                     className="input-field"
-
                 />
-                <button className="send-button" onClick={handleSendMessage} disabled={isBotTyping}>
+                <button
+                    className="send-button"
+                    onClick={handleSendMessage}
+                    disabled={isBotTyping}
+                >
                     <img className="img-send" src={Envoyer} alt="Envoyer" />
                 </button>
             </div>

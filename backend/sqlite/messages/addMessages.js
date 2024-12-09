@@ -3,9 +3,9 @@ import initDatabase from "../config.js";
 export const addMessage = async (historicalId, sender, content) => {
     const db = await initDatabase();
     const insertSQL = `
-    INSERT INTO Messages (historical_id, sender, content)
-    VALUES (?, ?, ?);
-  `;
+        INSERT INTO Messages (historical_id, sender, content, sent_at)
+        VALUES (?, ?, ?, datetime('now'));
+    `;
 
     try {
         await db.run(insertSQL, [historicalId, sender, content]);

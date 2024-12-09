@@ -1,28 +1,9 @@
 import express from 'express';
 import {addHistorical} from "../sqlite/historical/addHistorical.js";
 import {getMessagesByHistoricalId} from "../sqlite/messages/getMessagesByHistoricalId.js";
+import {addMessage} from "../sqlite/messages/addMessages.js";
 
 const router = express.Router();
-
-router.get('/:userId', async (req, res) => {
-    const { userId } = req.params;
-
-    console.log('Fetching chats for userId:', userId);
-
-    try {
-        const chats = await getMessagesByHistoricalId(userId);
-
-        if (!chats || chats.length === 0) {
-            return res.status(404).json({ message: 'Aucun historique trouvé.' });
-        }
-
-        res.status(200).json(chats);
-    } catch (err) {
-        console.error('Erreur lors de la récupération des historiques:', err);
-        res.status(500).json({ message: 'Erreur lors de la récupération des historiques.', error: err.message });
-    }
-});
-
 
 router.post('/', async (req, res) => {
     const { userId } = req.body;
@@ -37,6 +18,34 @@ router.post('/', async (req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).json({ message: 'Erreur lors de la création d’un nouveau chat.' });
+    }
+});
+
+router.get('/:historicalId/messages', async (req, res) => {
+    const { historicalId } = req.params;
+
+    try {
+        const messages = await getMessagesByHistoricalId(historicalId);
+        res.status(200).json(messages);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erreur lors de la récupération des messages.' });
+    }
+});
+
+router.post('/messages', async (req, res) => {
+    const { historicalId, sender, content } = req.body;
+
+    if (!historicalId || !sender || !content) {
+        return res.status(400).json({ error: 'Tous les champs sont obligatoires.' });
+    }
+
+    try {
+        await addMessage(historicalId, sender, content);
+        res.status(201).json({ message: 'Message ajouté avec succès.' });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Erreur lors de l’ajout du message.' });
     }
 });
 
