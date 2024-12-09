@@ -1,6 +1,6 @@
 import initDatabase from "../config.js";
 
-export const createUserTable = async () => {
+export const createMessagesTable = async () => {
     const db = await initDatabase();
     const createTableSQL = `
     CREATE TABLE IF NOT EXISTS Messages (
@@ -14,7 +14,7 @@ export const createUserTable = async () => {
 
     try {
         await db.exec(createTableSQL);
-        console.log('Table User créée ou déjà existante.');
+        console.log('Table Messages créée ou déjà existante.');
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
     } finally {
