@@ -30,17 +30,18 @@ const ConnectionBlock: React.FC = () => {
             const data = await response.json();
 
             if (response.status === 200) {
-                localStorage.setItem('user', JSON.stringify(data.user));
-
+                localStorage.setItem('userId', data.user.id);
                 navigate('/RAGAdmin');
             } else {
                 setErrors({ identifiant: data.message || 'Identifiant ou mot de passe incorrect.' });
             }
+
         } catch (error) {
             console.error('Erreur lors de la connexion :', error);
             setErrors({ identifiant: 'Une erreur est survenue lors de la connexion.' });
         }
     };
+
 
     const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
