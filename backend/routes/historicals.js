@@ -11,7 +11,10 @@ export default router.get('/:userId', async (req, res) => {
     try {
         const historicals = await getHistoricalsByUserId(userId);
 
+        console.log("Historicals fetched:", historicals);
+
         if (!historicals || historicals.length === 0) {
+            console.log("No historicals found.");
             return res.status(404).json({ message: 'Aucun historique trouvé.' });
         }
 

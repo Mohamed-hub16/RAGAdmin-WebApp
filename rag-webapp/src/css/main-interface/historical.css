@@ -116,3 +116,14 @@
     background-color: #eaeaea;
     border-radius: 4px;
 }
+
+.no-chats-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 25%;
+    border: black solid 1px;
+    border-radius: 10px;
+}

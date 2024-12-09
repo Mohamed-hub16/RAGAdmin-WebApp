@@ -21,20 +21,20 @@ export function Historical({
 
             try {
                 const response = await fetch(`http://localhost:5000/api/historicals/${userId}`);
-                if (!response.ok) {
-                    throw new Error("Erreur lors de la récupération des historiques");
-                }
 
                 const data = await response.json();
 
-                if (data && Array.isArray(data)) {
+                if (data.message && data.message === "Aucun historique trouvé.") {
+                    setChats([]);
+                    setError(null);
+                } else if (Array.isArray(data) && data.length > 0) {
                     const formattedChats = data.map((chat: { id: number; created_at: string }) => ({
                         id: chat.id,
                         label: `Chat #${chat.id} - Créé le ${new Date(chat.created_at).toLocaleString()}`,
                     }));
                     setChats(formattedChats);
                 } else {
-                    throw new Error("Aucun historique trouvé.");
+                    setError("Aucun historique trouvé.");
                 }
             } catch (error: any) {
                 setError(error.message);
@@ -45,6 +45,7 @@ export function Historical({
 
         fetchChats();
     }, [userId]);
+
 
     const handleChatClick = async (chatId: number) => {
         setActiveChatId(chatId);
@@ -57,7 +58,6 @@ export function Historical({
         const messages = await response.json();
         onChatSelected(chatId, messages);
     };
-
 
     const handleNewChat = async () => {
         setError(null);
@@ -83,6 +83,7 @@ export function Historical({
 
             setChats((prevChats) => [...prevChats, newChat]);
             setActiveChatId(newChat.id);
+
             const messagesResponse = await fetch(`http://localhost:5000/api/chats/${newChat.id}/messages`);
             if (!messagesResponse.ok) {
                 console.error("Erreur lors de la récupération des messages");
@@ -97,7 +98,6 @@ export function Historical({
         }
     };
 
-
     return (
         <div className="historical-container">
             <div className="historical-header">
@@ -106,12 +106,19 @@ export function Historical({
                     Nouveau chat
                 </button>
             </div>
+
             {error && <div className="error-message">{error}</div>}
-            <div className="historical-chats">
-                {isLoading ? (
-                    <div className="loading-message">Chargement...</div>
-                ) : (
-                    chats.map((chat) => (
+
+            {chats.length === 0 && !isLoading && !error ? (
+                <div className="no-chats-message">
+                    <h2>Oups ! 😭</h2>
+                    <p>Vous n'avez pas de chat, créez-en un.</p>
+                </div>
+            ) : isLoading ? (
+                <div className="loading-message">Chargement...</div>
+            ) : (
+                <div className="historical-chats">
+                    {chats.map((chat) => (
                         <div
                             key={chat.id}
                             className={`chat-item ${activeChatId === chat.id ? "selected" : ""}`}
@@ -119,9 +126,9 @@ export function Historical({
                         >
                             {chat.label}
                         </div>
-                    ))
-                )}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
