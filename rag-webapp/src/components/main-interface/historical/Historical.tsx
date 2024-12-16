@@ -98,6 +98,26 @@ export function Historical({
         }
     };
 
+    const handleDeleteChat = async (chatId: number) => {
+        setError(null);
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/historicals/${chatId}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors de la suppression du chat");
+            }
+
+            setChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
+
+        } catch (error: any) {
+            setError(error.message);
+            console.error("Erreur lors de la suppression du chat:", error.message);
+        }
+    };
+
     return (
         <div className="historical-container">
             <div className="historical-header">
@@ -125,6 +145,15 @@ export function Historical({
                             onClick={() => handleChatClick(chat.id)}
                         >
                             {chat.label}
+                            <button
+                                className="delete-chat-button"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteChat(chat.id);
+                                }}
+                            >
+                                Supprimer
+                            </button>
                         </div>
                     ))}
                 </div>

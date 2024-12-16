@@ -1,6 +1,7 @@
 import { getHistoricalsByUserId } from "../sqlite/historical/getHistoricalsByUserId.js";
+import { deleteMessagesFromHistoricalId } from "../sqlite/messages/deleteMessagesFromHistoricalId.js";
 import express from "express";
-import {deleteHistorical} from "../sqlite/historical/deleteHistorical.js";
+import { deleteHistorical } from "../sqlite/historical/deleteHistorical.js";
 
 const router = express.Router();
 
@@ -32,9 +33,15 @@ router.delete('/:historicalId', async (req, res) => {
     console.log('Deleting historical with ID:', historicalId);
 
     try {
-        const success = await deleteHistorical(historicalId);
+        const successDeleteMessagesFromHistoricalId = await deleteMessagesFromHistoricalId(historicalId);
 
-        if (success) {
+        if (!successDeleteMessagesFromHistoricalId) {
+            console.log(`Aucun historique trouvé avec l'ID ${historicalId}`);
+        }
+
+        const successDeleteHistorical = await deleteHistorical(historicalId);
+
+        if (successDeleteHistorical) {
             console.log(`Historique avec l'ID ${historicalId} supprimé avec succès.`);
             return res.status(200).json({ message: `Historique avec l'ID ${historicalId} supprimé avec succès.` });
         } else {
@@ -48,4 +55,3 @@ router.delete('/:historicalId', async (req, res) => {
 });
 
 export default router;
-
