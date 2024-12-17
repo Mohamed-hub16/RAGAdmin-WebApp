@@ -112,6 +112,7 @@ export function Historical({
 
             setChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
 
+            window.location.reload();
         } catch (error: any) {
             setError(error.message);
             console.error("Erreur lors de la suppression du chat:", error.message);

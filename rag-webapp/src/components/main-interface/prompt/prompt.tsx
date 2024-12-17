@@ -14,7 +14,7 @@ export function Prompt({
     initialMessages: Message[];
     historicalId: number | null;
 }) {
-    const [messages, setMessages] = useState<Message[]>(initialMessages || []);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [userInput, setUserInput] = useState<string>("");
     const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
     const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -24,12 +24,16 @@ export function Prompt({
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
+        if (historicalId) {
+            setMessages(initialMessages || []);
+        } else {
+            setMessages([]); // Réinitialise les messages quand aucun chat n'est ouvert
+        }
+    }, [initialMessages, historicalId]);
 
     useEffect(() => {
-        setMessages(initialMessages || []);
-    }, [initialMessages]);
+        scrollToBottom();
+    }, [messages]);
 
     const saveMessageToDatabase = async (sender: "user" | "bot", text: string) => {
         if (!historicalId) return;
@@ -54,7 +58,7 @@ export function Prompt({
     };
 
     const handleSendMessage = async () => {
-        if (!userInput.trim() || isBotTyping) return;
+        if (!userInput.trim() || isBotTyping || !historicalId) return;
 
         const userMessage = { sender: "user", text: userInput };
         // @ts-ignore
@@ -80,36 +84,46 @@ export function Prompt({
 
     return (
         <div className="chat-container">
-            <div className="chat-messages">
-                {messages.map((message, index) => (
-                    <div
-                        key={index}
-                        className={`message ${
-                            message.sender === "user" ? "user-message" : "bot-message"
-                        }`}
-                    >
-                        {message.text}
+            {!historicalId ? (
+                <div className="no-chat-message">
+                    <h2>Aucun chat d'ouvert !</h2>
+                    <span>Ouvrez un nouveau chat ou créez en-un. </span>
+                </div>
+            ) : (
+                <>
+                    <div className="chat-messages">
+                        {messages.map((message, index) => (
+                            <div
+                                key={index}
+                                className={`message ${
+                                    message.sender === "user" ? "user-message" : "bot-message"
+                                }`}
+                            >
+                                {message.text}
+                            </div>
+                        ))}
+                        <div ref={messagesEndRef} />
                     </div>
-                ))}
-                <div ref={messagesEndRef} />
-            </div>
-            <div className="chat-input">
-                <input
-                    type="text"
-                    value={userInput}
-                    onChange={(e) => setUserInput(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    placeholder="Entrez votre texte ici..."
-                    className="input-field"
-                />
-                <button
-                    className="send-button"
-                    onClick={handleSendMessage}
-                    disabled={isBotTyping}
-                >
-                    <img className="img-send" src={Envoyer} alt="Envoyer" />
-                </button>
-            </div>
+                    <div className="chat-input">
+                        <input
+                            type="text"
+                            value={userInput}
+                            onChange={(e) => setUserInput(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            placeholder="Entrez votre texte ici..."
+                            className="input-field"
+                            disabled={!historicalId}
+                        />
+                        <button
+                            className="send-button"
+                            onClick={handleSendMessage}
+                            disabled={isBotTyping || !historicalId}
+                        >
+                            <img className="img-send" src={Envoyer} alt="Envoyer" />
+                        </button>
+                    </div>
+                </>
+            )}
         </div>
     );
 }
