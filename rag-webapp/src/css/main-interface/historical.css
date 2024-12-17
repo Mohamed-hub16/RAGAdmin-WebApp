@@ -116,3 +116,29 @@
     background-color: #eaeaea;
     border-radius: 4px;
 }
+
+.no-chats-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin-top: 25%;
+    border: black solid 1px;
+    border-radius: 10px;
+}
+
+.delete-chat-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 10px;
+    border-radius: 4px;
+}
+
+.delete-chat-button:hover {
+    background-color: darkred;
+}

@@ -3,11 +3,11 @@ import { getUserById } from "../sqlite/users/getUser.js";
 
 const router = express.Router();
 
-router.get("/:id", async (req, res) => {
-    const { id } = req.params;
+router.get("/:userId", async (req, res) => {
+    const { userId } = req.params;
 
     try {
-        const user = await getUserById(id);
+        const user = await getUserById(userId);
         if (!user) {
             return res.status(404).json({ message: "Utilisateur introuvable." });
         }
