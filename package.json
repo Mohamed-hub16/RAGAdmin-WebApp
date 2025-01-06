@@ -2,12 +2,12 @@
   "name": "RAGAdmin-WebApp",
   "version": "1.0.0",
   "scripts": {
-    "dev:front": "cd rag-webapp && npm run dev",
-    "dev:back": "cd backend && npm run dev",
+    "dev:front": "cd rag-webapp && npm i && npm run dev",
+    "dev:back": "cd backend && npm i && npm run dev",
     "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
-    "build:front": "cd rag-webapp && npm run build && serve -s build -l 4000",
-    "build:back": "cd backend && npm run start",
-    "build": "concurrently \"npm run build:front\" \"npm run build:back\""
+    "build:front": "cd rag-webapp && npm i && npm run build && serve -s build -l 4000",
+    "build:back": "cd backend && npm i && npm run start",
+    "build": "concurrently \"npm i\" \"npm run build:front\" \"npm run build:back\""
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
