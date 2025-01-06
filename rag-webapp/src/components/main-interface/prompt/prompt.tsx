@@ -1,11 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
+import ReactMarkdown from 'react-markdown';
 import Envoyer from "../../../res/envoyer.png";
 import "../../../css/main-interface/prompt.css";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+// @ts-ignore
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface Message {
     sender: "user" | "bot";
     text: string;
 }
+interface MessagesListProps {
+    messages: Message[];
+}
+
 
 export function Prompt({
                            initialMessages,
@@ -69,8 +77,11 @@ export function Prompt({
         setIsBotTyping(true);
 
         setTimeout(async () => {
-            const botResponse = `Réponse du bot : ${userInput}`;
-            setMessages((prevMessages) => [...prevMessages, { sender: "bot", text: botResponse }]);
+            const botResponse = userInput;
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { sender: "bot", text: botResponse },
+            ]);
             await saveMessageToDatabase("bot", botResponse);
             setIsBotTyping(false);
         }, 2000);
@@ -99,7 +110,34 @@ export function Prompt({
                                     message.sender === "user" ? "user-message" : "bot-message"
                                 }`}
                             >
-                                {message.text}
+                                {message.sender === "bot" ? (
+                                    <ReactMarkdown
+                                        components={{
+                                            code({ node, inline, className, children, ...props }: any) {
+                                                const match = /language-(\w+)/.exec(className || "");
+                                                return !inline && match ? (
+                                                    <SyntaxHighlighter
+                                                        style={vscDarkPlus}
+                                                        language={match[1]}
+                                                        PreTag="div"
+                                                        {...props}
+                                                    >
+                                                        {String(children).replace(/\n$/, "")}
+                                                    </SyntaxHighlighter>
+                                                ) : (
+                                                    <code className={className} {...props}>
+                                                        {children}
+                                                    </code>
+                                                );
+                                            }
+                                            ,
+                                        }}
+                                    >
+                                        {message.text}
+                                    </ReactMarkdown>
+                                ) : (
+                                    <span>{message.text}</span>
+                                )}
                             </div>
                         ))}
                         <div ref={messagesEndRef} />
