@@ -1,10 +1,7 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_HOME = '/usr/local/bin/node'
-        PATH = "${env.NODE_HOME}:${env.PATH}"
-    }
+    tools {nodejs "NODEJS"}
 
     stages {
         stage('Checkout Code') {
