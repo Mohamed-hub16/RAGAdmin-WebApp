@@ -17,8 +17,7 @@ pipeline {
                 sh 'npm install'
                 sh 'chmod -R +x rag-webapp/node_modules/.bin'
                 sh 'chmod +x jenkins/scripts/kill.sh'
-                sh 'npm run build:front'
-                sh 'npm run build:back'
+                sh 'npm run build'
             }
         }
 
