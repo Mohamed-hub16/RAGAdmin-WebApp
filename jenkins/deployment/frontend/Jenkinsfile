@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    environment {
+        NODE_HOME = '/usr/local/bin/node'
+        PATH = "${env.NODE_HOME}:${env.PATH}"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                echo 'Cloning repository...'
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                echo 'Installing dependencies'
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the React front-end...'
+                sh 'npm run build:front'
+            }
+        }
+
+        stage('Deployment') {
+            steps {
+                echo 'Starting the application (front-end)...'
+                sh 'npm run start:front'
+            }
+        }
+    }
+
+    post {
+        success {
+            archiveArtifacts artifacts: '**/build/**', fingerprint: true
+            echo 'Application deployed successfully!'
+        }
+        failure {
+            echo 'Build or deployment failed!'
+        }
+    }
+}

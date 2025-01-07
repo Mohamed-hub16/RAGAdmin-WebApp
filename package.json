@@ -2,9 +2,15 @@
   "name": "RAGAdmin-WebApp",
   "version": "1.0.0",
   "scripts": {
-    "dev:front": "cd rag-webapp && npm run dev",
-    "dev:back": "cd backend && npm run dev",
-    "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\""
+    "dev:front": "cd rag-webapp && npm i && npm run dev",
+    "dev:back": "cd backend && npm i && npm run dev",
+    "dev": "concurrently \"npm run dev:front\" \"npm run dev:back\"",
+    "build:front": "cd rag-webapp && npm i && npm run build",
+    "build:back": "cd backend && npm i",
+    "build": "concurrently \"npm run build:front\" \"npm run build:back\"",
+    "start:front": "cd rag-webapp && serve -s build -l 4000",
+    "start:back": "cd backend && npm start",
+    "start": "concurrently \"npm run start:front\" \"npm run start:back\""
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
@@ -14,6 +20,7 @@
   "dependencies": {
     "concurrently": "^9.1.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-syntax-highlighter": "^15.6.1"
   }
 }
