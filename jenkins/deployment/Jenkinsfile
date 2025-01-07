@@ -15,6 +15,8 @@ pipeline {
             steps {
                 echo 'Installing dependencies'
                 sh 'npm install'
+                sh 'chmod -R +x rag-webapp/node_modules/.bin'
+
             }
         }
 
