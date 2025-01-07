@@ -16,6 +16,7 @@ pipeline {
                 echo 'Installing dependencies'
                 sh 'npm install'
                 sh 'chmod -R +x rag-webapp/node_modules/.bin'
+                sh 'chmod +x jenkins/scripts/kill.sh'
 
             }
         }
@@ -38,6 +39,8 @@ pipeline {
             steps {
                 echo 'Starting the application (front-end and back-end)...'
                 sh 'npm run start'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
             }
         }
     }
