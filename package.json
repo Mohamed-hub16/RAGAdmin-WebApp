@@ -6,7 +6,7 @@
     "dev:back": "cd backend && npm i && npm run dev",
     "dev": "npx npm run dev:front && npx npm run dev:back",
     "build": "cd rag-webapp && npm run build",
-    "start:front": "cd rag-webapp && npx http-server build -p 8081",
+    "start:front": "cd rag-webapp && npx serve -s build -l 4000",
     "start:back": "cd backend && npm start",
     "start": "npx npm run start:front && npx npm run start:back"
   },
