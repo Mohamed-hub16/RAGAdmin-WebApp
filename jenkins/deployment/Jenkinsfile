@@ -17,14 +17,12 @@ pipeline {
                 sh 'chmod -R +x backend/node_modules/.bin'
                 sh 'chmod -R +x rag-webapp/node_modules/.bin'
                 sh 'chmod +x jenkins/scripts/kill.sh'
-                sh 'npm run build'
             }
         }
 
         stage('Deployment') {
             steps {
-                echo 'Starting the application (front-end and back-end)...'
-                sh 'npm run start'
+                sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
