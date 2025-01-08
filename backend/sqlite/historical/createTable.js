@@ -1,7 +1,7 @@
 import initDatabase from "../config.js";
 
 export const createHistoricalTable = async () => {
-    const db = await initDatabase();
+    const db = initDatabase();
     const createTableSQL = `
     CREATE TABLE IF NOT EXISTS Historicals (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,6 +17,6 @@ export const createHistoricalTable = async () => {
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
     } finally {
-        await db.close();
+
     }
 };

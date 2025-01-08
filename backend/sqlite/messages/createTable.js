@@ -1,7 +1,7 @@
 import initDatabase from "../config.js";
 
 export const createMessagesTable = async () => {
-    const db = await initDatabase();
+    const db = initDatabase();
     const createTableSQL = `
     CREATE TABLE IF NOT EXISTS Messages (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -18,6 +18,6 @@ export const createMessagesTable = async () => {
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
     } finally {
-        await db.close();
+
     }
 };

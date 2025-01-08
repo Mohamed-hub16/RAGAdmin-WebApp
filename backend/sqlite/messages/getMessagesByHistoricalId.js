@@ -1,16 +1,16 @@
 import initDatabase from "../config.js";
 
-export const getMessagesByHistoricalId = async (historicalId) => {
-    const db = await initDatabase();
-    const selectSQL = `
+export const getMessagesByHistoricalId = (historicalId) => {
+    const db = initDatabase();
+    const stmt = db.prepare(`
         SELECT sender, content, sent_at
         FROM Messages
         WHERE historical_id = ?
         ORDER BY sent_at ASC;
-    `;
+    `);
 
     try {
-        const rows = await db.all(selectSQL, [historicalId]);
+        const rows = stmt.all(historicalId);
         return rows.map(row => ({
             sender: row.sender,
             text: row.content,
@@ -19,7 +19,5 @@ export const getMessagesByHistoricalId = async (historicalId) => {
     } catch (err) {
         console.error('Erreur lors de la récupération des messages:', err.message);
         return [];
-    } finally {
-        await db.close();
     }
 };
