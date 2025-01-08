@@ -2,13 +2,14 @@
   "name": "RAGAdmin-WebApp",
   "version": "1.0.0",
   "scripts": {
-    "dev:front": "cd rag-webapp && npm i && npm run dev",
-    "dev:back": "cd backend && npm i && npm run dev",
-    "dev": "npx npm run dev:front && npx npm run dev:back",
-    "build": "cd rag-webapp && npm run build",
+    "dev:front": "cd rag-webapp && npm install && npm run dev",
+    "dev:back": "cd backend && npm install && npm run dev",
+    "dev": "npm run dev:front & npm run dev:back",
+    "build:front": "cd rag-webapp && npm run build",
+    "build": "npm run build:front",
     "start:front": "cd rag-webapp && npm run start",
-    "start:back": "cd backend && npm start",
-    "start": "npx npm run start:front && npx npm run start:back"
+    "start:back": "cd backend && HOST=0.0.0.0 PORT=5000 node app.js",
+    "start": "npm run start:front & npm run start:back"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
