@@ -9,25 +9,21 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Build') {
             steps {
                 echo 'Installing dependencies'
                 sh 'npm install'
-                sh 'chmod -R +x rag-webapp/node_modules/.bin'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                echo 'Building the Express back-end...'
-                sh 'npm run build:back'
+                sh 'chmod -R +x node_modules/.bin'
+                sh 'chmod -R +x backend/node_modules/.bin'
+                sh 'chmod -R +x jenkins/deployment/backend/scripts'
             }
         }
 
         stage('Deployment') {
             steps {
-                echo 'Starting the application (back-end)...'
-                sh 'npm run start:back'
+                sh './jenkins/deployment/backend/scripts/deliver.sh'
+                input message: 'Finished using the api ? (Click "Proceed" to continue)'
+                sh './jenkins/deployment/backend/scripts/kill.sh'
             }
         }
     }
