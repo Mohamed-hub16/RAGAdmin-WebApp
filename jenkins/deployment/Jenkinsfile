@@ -16,6 +16,7 @@ pipeline {
                 sh 'chmod -R +x node_modules/.bin'
                 sh 'chmod -R +x backend/node_modules/.bin'
                 sh 'chmod -R +x rag-webapp/node_modules/.bin'
+                sh 'chmod -R +x jenkins/deployment/scripts'
             }
         }
 
