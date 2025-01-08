@@ -1,7 +1,7 @@
 import initDatabase from "../config.js";
 
 export const createUserTable = async () => {
-    const db = await initDatabase();
+    const db = initDatabase();
     const createTableSQL = `
     CREATE TABLE IF NOT EXISTS User (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,6 +16,6 @@ export const createUserTable = async () => {
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
     } finally {
-        await db.close();
+
     }
 };

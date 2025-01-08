@@ -1,20 +1,18 @@
 import initDatabase from "../config.js";
 
-export const addHistorical = async (userId) => {
-    const db = await initDatabase();
-    const insertSQL = `
-    INSERT INTO Historicals (user_id)
-    VALUES (?);
-  `;
+export const addHistorical = (userId) => {
+    const db = initDatabase();
+    const stmt = db.prepare(`
+        INSERT INTO Historicals (user_id)
+        VALUES (?);
+    `);
 
     try {
-        const result = await db.run(insertSQL, [userId]);
+        const result = stmt.run(userId);
         console.log(`Nouvelle session d’historique créée pour l'utilisateur ID : ${userId}`);
-        return result.lastID;
+        return result.lastInsertRowid;
     } catch (err) {
         console.error('Erreur lors de l’ajout de la session d’historique:', err.message);
         return null;
-    } finally {
-        await db.close();
     }
 };

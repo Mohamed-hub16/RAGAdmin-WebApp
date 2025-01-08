@@ -1,25 +1,23 @@
 import initDatabase from "../config.js";
 
-export const deleteMessagesFromHistoricalId = async (historicalId) => {
-    const db = await initDatabase();
+export const deleteMessagesFromHistoricalId = (historicalId) => {
+    const db = initDatabase();
     const deleteSQL = `
     DELETE FROM Messages WHERE historical_id = ?;
   `;
 
     try {
-        const result = await db.run(deleteSQL, [historicalId]);
+        const result = db.prepare(deleteSQL).run(historicalId);
 
         if (result.changes === 0) {
-            console.log(`Aucun historique trouvé avec l'ID : ${historicalId}`);
+            console.log(`Aucun message trouvé avec l'ID historique : ${historicalId}`);
             return false;
         }
 
-        console.log(`Historique avec l'ID ${historicalId} supprimé avec succès.`);
+        console.log(`Messages liés à l'ID historique ${historicalId} supprimés avec succès.`);
         return true;
     } catch (err) {
-        console.error('Erreur lors de la suppression de l’historique:', err.message);
+        console.error('Erreur lors de la suppression des messages:', err.message);
         return false;
-    } finally {
-        await db.close();
     }
 };

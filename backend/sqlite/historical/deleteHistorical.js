@@ -1,13 +1,13 @@
 import initDatabase from "../config.js";
 
-export const deleteHistorical = async (historicalId) => {
-    const db = await initDatabase();
+export const deleteHistorical = (historicalId) => {
+    const db = initDatabase();
     const deleteSQL = `
     DELETE FROM Historicals WHERE id = ?;
   `;
 
     try {
-        const result = await db.run(deleteSQL, [historicalId]);
+        const result = db.prepare(deleteSQL).run(historicalId);
 
         if (result.changes === 0) {
             console.log(`Aucun historique trouvé avec l'ID : ${historicalId}`);
@@ -19,7 +19,5 @@ export const deleteHistorical = async (historicalId) => {
     } catch (err) {
         console.error('Erreur lors de la suppression de l’historique:', err.message);
         return false;
-    } finally {
-        await db.close();
     }
 };

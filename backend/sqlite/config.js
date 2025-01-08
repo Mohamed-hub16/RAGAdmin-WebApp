@@ -1,12 +1,7 @@
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
+import Database from 'better-sqlite3';
 
-const initDatabase = async () => {
-    const db = await open({
-        filename: './sqlite/database.sqlite',
-        driver: sqlite3.Database,
-    });
-
+const initDatabase = () => {
+    const db = new Database('./sqlite/database.sqlite');
     console.log('Connexion à la base de données SQLite réussie.');
     return db;
 };
