@@ -1,14 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
-
-echo "Killing running application..."
-
-# shellcheck disable=SC2009
-PID=$(ps aux | grep 'node' | grep -v 'grep' | awk '{print $2}')
-
-if [ -z "$PID" ]; then
-    echo "No running Node.js process found!"
-else
-    kill -9 $PID
-    echo "Node.js process with PID $PID killed."
-fi
+echo 'The following command terminates the "npm start" process using its PID'
+echo '(written to ".pidfile"), all of which were conducted when "deliver.sh"'
+echo 'was executed.'
+set -x
+kill $(cat .pidfile)
