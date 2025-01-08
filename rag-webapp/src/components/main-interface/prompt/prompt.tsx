@@ -10,9 +10,6 @@ interface Message {
     sender: "user" | "bot";
     text: string;
 }
-interface MessagesListProps {
-    messages: Message[];
-}
 
 
 export function Prompt({
