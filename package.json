@@ -8,7 +8,7 @@
     "build:front": "cd rag-webapp && npm run build",
     "build": "npm run build:front",
     "start:front": "cd rag-webapp && npm run start",
-    "start:back": "cd backend && npm start",
+    "start:back": "cd backend && npm run start",
     "start": "npm run start:front & npm run start:back"
   },
   "devDependencies": {
