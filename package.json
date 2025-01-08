@@ -6,7 +6,7 @@
     "dev:back": "cd backend && npm i && npm run dev",
     "dev": "npx npm run dev:front && npx npm run dev:back",
     "build": "cd rag-webapp && npm run build",
-    "start:front": "cd rag-webapp && serve -s build -l 4000",
+    "start:front": "cd rag-webapp && npx http-server build -p 8081",
     "start:back": "cd backend && npm start",
     "start": "npx npm run start:front && npx npm run start:back"
   },
@@ -16,6 +16,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-syntax-highlighter": "^15.6.1"
