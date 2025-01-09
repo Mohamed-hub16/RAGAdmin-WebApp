@@ -16,7 +16,7 @@ export function Main() {
             const fetchMessages = async () => {
                 try {
                     const response = await fetch(
-                        `http://localhost:5000/api/chats/${selectedHistoricalId}/messages`
+                        `http://192.168.0.1:5000/api/chats/${selectedHistoricalId}/messages`
                     );
                     if (!response.ok) {
                         throw new Error("Erreur lors de la récupération des messages");
