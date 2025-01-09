@@ -20,7 +20,7 @@ export function Historical({
             setError(null);
 
             try {
-                const response = await fetch(`http://localhost:5000/api/historicals/${userId}`);
+                const response = await fetch(`http://192.168.0.1:5000/api/historicals/${userId}`);
 
                 const data = await response.json();
 
@@ -50,7 +50,7 @@ export function Historical({
     const handleChatClick = async (chatId: number) => {
         setActiveChatId(chatId);
 
-        const response = await fetch(`http://localhost:5000/api/chats/${chatId}/messages`);
+        const response = await fetch(`http://192.168.0.1:5000/api/chats/${chatId}/messages`);
         if (!response.ok) {
             console.error("Erreur lors de la récupération des messages");
             return;
@@ -63,7 +63,7 @@ export function Historical({
         setError(null);
 
         try {
-            const response = await fetch("http://localhost:5000/api/chats", {
+            const response = await fetch("http://192.168.0.1:5000/api/chats", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -84,7 +84,7 @@ export function Historical({
             setChats((prevChats) => [...prevChats, newChat]);
             setActiveChatId(newChat.id);
 
-            const messagesResponse = await fetch(`http://localhost:5000/api/chats/${newChat.id}/messages`);
+            const messagesResponse = await fetch(`http://192.168.0.1:5000/api/chats/${newChat.id}/messages`);
             if (!messagesResponse.ok) {
                 console.error("Erreur lors de la récupération des messages");
                 return;
@@ -102,7 +102,7 @@ export function Historical({
         setError(null);
 
         try {
-            const response = await fetch(`http://localhost:5000/api/historicals/${chatId}`, {
+            const response = await fetch(`http://192.168.0.1:5000/api/historicals/${chatId}`, {
                 method: "DELETE",
             });
 

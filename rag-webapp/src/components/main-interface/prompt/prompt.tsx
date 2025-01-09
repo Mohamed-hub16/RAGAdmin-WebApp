@@ -44,7 +44,7 @@ export function Prompt({
         if (!historicalId) return;
 
         try {
-            const response = await fetch("http://localhost:5000/api/chats/messages", {
+            const response = await fetch("http://192.168.0.1:5000/api/chats/messages", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

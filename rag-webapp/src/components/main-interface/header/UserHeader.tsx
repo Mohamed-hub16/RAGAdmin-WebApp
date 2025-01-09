@@ -13,7 +13,7 @@ export function UserHeader() {
 
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/user/${userId}`);
+                const response = await fetch(`http://192.168.0.1:5000/api/user/${userId}`);
                 if (!response.ok) {
                     throw new Error(`Erreur API : ${response.statusText}`);
                 }
