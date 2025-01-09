@@ -8,11 +8,10 @@ export const addUser = async (identifiant, password) => {
   `;
 
     try {
-        db.prepare(insertSQL, [identifiant, password || '']);
+        const stmt = db.prepare(insertSQL);
+        stmt.run(identifiant, password || '');
         console.log(`Utilisateur ajouté : ${identifiant}`);
     } catch (err) {
         console.error('Erreur lors de l’ajout de l’utilisateur:', err.message);
-    } finally {
-
     }
 };
