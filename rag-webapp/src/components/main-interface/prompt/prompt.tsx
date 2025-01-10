@@ -5,6 +5,7 @@ import "../../../css/main-interface/prompt.css";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 // @ts-ignore
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { API_BACK_IP } from "../../../global";
 
 interface Message {
     sender: "user" | "bot";
@@ -44,7 +45,7 @@ export function Prompt({
         if (!historicalId) return;
 
         try {
-            const response = await fetch("http://192.168.0.1:5000/api/chats/messages", {
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/chats/messages`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/log-interface/connection.css';
+import { API_BACK_IP } from "../../global";
 
 const ConnectionBlock: React.FC = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const ConnectionBlock: React.FC = () => {
         if (Object.keys(validationErrors).length > 0) return;
 
         try {
-            const response = await fetch('http://192.168.0.1:5000/api/auth/login', {
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ identifiant, password }),
