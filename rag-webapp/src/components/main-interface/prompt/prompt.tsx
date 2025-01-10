@@ -65,7 +65,7 @@ export function Prompt({
     // Requête POST pour envoyer le prompt et obtenir la réponse
     const fetchLLMResponse = async (prompt: string): Promise<string> => {
         try {
-            const response = await fetch(`http://${API_BACK_IP}:5000/api/llm/prompt`, {
+            const response = await fetch(`http://${API_BACK_IP}:8000`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ prompt }),
@@ -101,10 +101,6 @@ export function Prompt({
             // @ts-ignore
             setMessages((prevMessages) => [...prevMessages, botMessage]);
             await saveMessageToDatabase("bot", botResponseText);
-
-            // Facultatif : Utiliser la requête GET pour vérifier une réponse
-            // const botResponseByGet = await fetchLLMResponseByGet(userInput);
-            // console.log("Réponse LLM via GET:", botResponseByGet);
         } catch (error) {
             console.error(error);
         } finally {
