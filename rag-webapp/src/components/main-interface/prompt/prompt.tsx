@@ -74,7 +74,7 @@ export function Prompt({
             }
 
             const data = await response.json();
-            return data.response;
+            return data.response.data;
         } catch (error) {
             console.error(error);
             return "Erreur lors de la communication avec le LLM.";
