@@ -3,6 +3,7 @@ import Header from "./header/Header";
 import { Prompt } from "./prompt/prompt";
 import "../../css/main-interface/main.css";
 import { Historical } from "./historical/Historical";
+import { API_BACK_IP } from "../../global";
 
 export function Main() {
     const userId = Number(localStorage.getItem("userId"));
@@ -16,7 +17,7 @@ export function Main() {
             const fetchMessages = async () => {
                 try {
                     const response = await fetch(
-                        `http://192.168.0.1:5000/api/chats/${selectedHistoricalId}/messages`
+                        `http://${API_BACK_IP}:5000/api/chats/${selectedHistoricalId}/messages`
                     );
                     if (!response.ok) {
                         throw new Error("Erreur lors de la récupération des messages");

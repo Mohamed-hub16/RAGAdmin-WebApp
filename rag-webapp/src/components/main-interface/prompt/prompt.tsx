@@ -5,12 +5,12 @@ import "../../../css/main-interface/prompt.css";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 // @ts-ignore
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { API_BACK_IP } from "../../../global";
 
 interface Message {
     sender: "user" | "bot";
     text: string;
 }
-
 
 export function Prompt({
                            initialMessages,
@@ -44,7 +44,7 @@ export function Prompt({
         if (!historicalId) return;
 
         try {
-            const response = await fetch("http://192.168.0.1:5000/api/chats/messages", {
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/chats/messages`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -62,6 +62,27 @@ export function Prompt({
         }
     };
 
+    // Requête POST pour envoyer le prompt et obtenir la réponse
+    const fetchLLMResponse = async (prompt: string): Promise<string> => {
+        try {
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/llm/prompt`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ prompt }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Erreur lors de la récupération de la réponse du LLM.");
+            }
+
+            const data = await response.json();
+            return data.response;
+        } catch (error) {
+            console.error(error);
+            return "Erreur lors de la communication avec le LLM.";
+        }
+    };
+
     const handleSendMessage = async () => {
         if (!userInput.trim() || isBotTyping || !historicalId) return;
 
@@ -73,15 +94,22 @@ export function Prompt({
         setUserInput("");
         setIsBotTyping(true);
 
-        setTimeout(async () => {
-            const botResponse = userInput;
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { sender: "bot", text: botResponse },
-            ]);
-            await saveMessageToDatabase("bot", botResponse);
+        try {
+            const botResponseText = await fetchLLMResponse(userInput);
+            const botMessage = { sender: "bot", text: botResponseText };
+
+            // @ts-ignore
+            setMessages((prevMessages) => [...prevMessages, botMessage]);
+            await saveMessageToDatabase("bot", botResponseText);
+
+            // Facultatif : Utiliser la requête GET pour vérifier une réponse
+            // const botResponseByGet = await fetchLLMResponseByGet(userInput);
+            // console.log("Réponse LLM via GET:", botResponseByGet);
+        } catch (error) {
+            console.error(error);
+        } finally {
             setIsBotTyping(false);
-        }, 2000);
+        }
     };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -127,7 +155,6 @@ export function Prompt({
                                                     </code>
                                                 );
                                             }
-                                            ,
                                         }}
                                     >
                                         {message.text}

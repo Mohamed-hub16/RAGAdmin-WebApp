@@ -11,22 +11,22 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Navigate to="/Login" />} />
+                <Route path="/" element={<Navigate to="/login" />} />
 
-                <Route path="/Login" element={
+                <Route path="/login" element={
                     <PrivateRouteLogin>
                         <Log />
                     </PrivateRouteLogin>
                 } />
 
-                <Route path="/Register" element={
+                <Route path="/signup" element={
                     <PrivateRouteLogin>
                         <Register />
                     </PrivateRouteLogin>
                 } />
 
                 <Route
-                    path="/RAGAdmin"
+                    path="/main"
                     element={
                         <PrivateRouteMainPage>
                             <Main />
