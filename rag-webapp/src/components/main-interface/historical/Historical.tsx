@@ -31,7 +31,7 @@ export function Historical({
                 } else if (Array.isArray(data) && data.length > 0) {
                     const formattedChats = data.map((chat: { id: number; created_at: string }) => ({
                         id: chat.id,
-                        label: `Chat #${chat.id} - Créé le ${new Date(chat.created_at).toLocaleString()}`,
+                        label: `New chat - Créé le ${new Date(chat.created_at).toLocaleString()}`,
                     }));
                     setChats(formattedChats);
                 } else {
@@ -79,7 +79,7 @@ export function Historical({
             const data = await response.json();
             const newChat = {
                 id: data.chat.id,
-                label: `Chat #${data.chat.id} - Créé maintenant`,
+                label: `New chat- Créé maintenant`,
             };
 
             setChats((prevChats) => [...prevChats, newChat]);

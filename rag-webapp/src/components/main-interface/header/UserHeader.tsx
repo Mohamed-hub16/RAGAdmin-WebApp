@@ -31,7 +31,7 @@ export function UserHeader() {
 
     const handleLogout = () => {
         localStorage.removeItem("userId");
-        navigate("/Login");
+        navigate("/login");
     };
 
     return (

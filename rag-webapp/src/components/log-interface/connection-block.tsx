@@ -32,7 +32,7 @@ const ConnectionBlock: React.FC = () => {
 
             if (response.status === 200) {
                 localStorage.setItem('userId', data.user.id);
-                navigate('/RAGAdmin');
+                navigate('/main');
             } else {
                 setErrors({ identifiant: data.message || 'Identifiant ou mot de passe incorrect.' });
             }
@@ -46,7 +46,7 @@ const ConnectionBlock: React.FC = () => {
 
     const handleRegister = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        navigate('/Register');
+        navigate('/signup');
     };
 
     return (

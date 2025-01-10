@@ -35,7 +35,7 @@ const RegisterBlock: React.FC = () => {
             const data = await response.json();
 
             if (response.status === 201) {
-                navigate('/Login');
+                navigate('/login');
             } else {
                 setErrors({ identifiant: data.message || 'Erreur lors de l’inscription.' });
             }
