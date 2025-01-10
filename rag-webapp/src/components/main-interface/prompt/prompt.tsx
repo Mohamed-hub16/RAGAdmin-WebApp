@@ -68,7 +68,7 @@ export function Prompt({
             const response = await fetch(`http://${API_BACK_IP}:8000`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify( prompt ),
+                body: JSON.stringify({ req: prompt }),
             });
 
             if (!response.ok) {
