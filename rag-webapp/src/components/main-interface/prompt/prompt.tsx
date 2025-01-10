@@ -65,10 +65,8 @@ export function Prompt({
     // Requête POST pour envoyer le prompt et obtenir la réponse
     const fetchLLMResponse = async (prompt: string): Promise<string> => {
         try {
-            const response = await fetch(`http://${API_BACK_IP}:8000/request`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ req: prompt }),
+            const response = await fetch(`http://${API_BACK_IP}:8000/${encodeURIComponent(prompt)}`, {
+                method: "POST"
             });
 
             if (!response.ok) {
