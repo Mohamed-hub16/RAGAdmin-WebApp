@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import "../../../css/main-interface/header.css";
 import profileicon from "../../../res/profile-icon.png";
 import { useNavigate } from "react-router-dom";
+import { API_BACK_IP } from "../../../global";
 
 export function UserHeader() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export function UserHeader() {
 
         const fetchUserDetails = async () => {
             try {
-                const response = await fetch(`http://192.168.0.1:5000/api/user/${userId}`);
+                const response = await fetch(`http://${API_BACK_IP}:5000/api/user/${userId}`);
                 if (!response.ok) {
                     throw new Error(`Erreur API : ${response.statusText}`);
                 }
@@ -30,7 +31,7 @@ export function UserHeader() {
 
     const handleLogout = () => {
         localStorage.removeItem("userId");
-        navigate("/Login");
+        navigate("/login");
     };
 
     return (

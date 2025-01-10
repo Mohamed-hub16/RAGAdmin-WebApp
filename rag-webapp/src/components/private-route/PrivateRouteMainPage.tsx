@@ -9,7 +9,7 @@ const PrivateRouteMainPage: React.FC<PrivateRouteProps> = ({ children }) => {
     const user = JSON.parse(localStorage.getItem('userId') || 'null');
 
     if (!user) {
-        return <Navigate to="/Login" replace />;
+        return <Navigate to="/login" replace />;
     }
 
     return children;

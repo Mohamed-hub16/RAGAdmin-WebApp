@@ -1,0 +1,1 @@
+export const API_BACK_IP = "192.168.0.1";

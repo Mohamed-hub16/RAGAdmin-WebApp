@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../css/register-interface/register-block.css';
+import { API_BACK_IP } from "../../global";
 
 const RegisterBlock: React.FC = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const RegisterBlock: React.FC = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://192.168.0.1:5000/api/auth/register', {
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ identifiant, password }),
@@ -34,7 +35,7 @@ const RegisterBlock: React.FC = () => {
             const data = await response.json();
 
             if (response.status === 201) {
-                navigate('/Login');
+                navigate('/login');
             } else {
                 setErrors({ identifiant: data.message || 'Erreur lors de l’inscription.' });
             }
