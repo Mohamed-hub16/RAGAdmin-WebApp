@@ -1,0 +1,6 @@
+projectKey=KAMOULOX
+serverUrl=http://localhost:9000
+serverVersion=25.1.0.102122
+dashboardUrl=http://localhost:9000/dashboard?id=KAMOULOX
+ceTaskId=22ed44cc-c23f-4094-bc96-fa8447a81078
+ceTaskUrl=http://localhost:9000/api/ce/task?id=22ed44cc-c23f-4094-bc96-fa8447a81078
