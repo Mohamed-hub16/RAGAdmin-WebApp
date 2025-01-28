@@ -12,12 +12,36 @@ interface Message {
     text: string;
 }
 
+interface CodeBlockProps {
+    inline?: boolean;
+    className?: string;
+    children: React.ReactNode;
+}
+
+const CodeBlock: React.FC<CodeBlockProps> = ({ inline, className, children, ...props }) => {
+    const match = /language-(\w+)/.exec(className ?? "");
+    return !inline && match ? (
+        <SyntaxHighlighter
+            style={vscDarkPlus}
+            language={match[1]}
+            PreTag="div"
+            {...props}
+        >
+            {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+    ) : (
+        <code className={className} {...props}>
+            {children}
+        </code>
+    );
+};
+
 export function Prompt({
                            initialMessages,
                            historicalId,
                        }: {
-    initialMessages: Message[];
-    historicalId: number | null;
+    readonly initialMessages: Message[];
+    readonly historicalId: number | null;
 }) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [userInput, setUserInput] = useState<string>("");
@@ -132,23 +156,7 @@ export function Prompt({
                                 {message.sender === "bot" ? (
                                     <ReactMarkdown
                                         components={{
-                                            code({ node, inline, className, children, ...props }: any) {
-                                                const match = /language-(\w+)/.exec(className || "");
-                                                return !inline && match ? (
-                                                    <SyntaxHighlighter
-                                                        style={vscDarkPlus}
-                                                        language={match[1]}
-                                                        PreTag="div"
-                                                        {...props}
-                                                    >
-                                                        {String(children).replace(/\n$/, "")}
-                                                    </SyntaxHighlighter>
-                                                ) : (
-                                                    <code className={className} {...props}>
-                                                        {children}
-                                                    </code>
-                                                );
-                                            }
+                                            code: CodeBlock
                                         }}
                                     >
                                         {message.text}
@@ -165,7 +173,7 @@ export function Prompt({
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                             placeholder="Entrez votre texte ici..."
                             className="input-field"
                             disabled={!historicalId}

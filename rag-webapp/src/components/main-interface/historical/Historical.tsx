@@ -7,8 +7,8 @@ export function Historical({
                                userId,
                                onChatSelected,
                            }: {
-    userId: number;
-    onChatSelected: (historicalId: number, messages: { sender: "user" | "bot"; text: string }[]) => void;
+    readonly userId: number;
+    readonly onChatSelected: (historicalId: number, messages: { sender: "user" | "bot"; text: string }[]) => void;
 }) {
     const [chats, setChats] = useState<{ id: number; label: string }[]>([]);
     const [activeChatId, setActiveChatId] = useState<number | null>(null);
