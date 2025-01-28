@@ -16,8 +16,8 @@ export function Prompt({
                            initialMessages,
                            historicalId,
                        }: {
-    initialMessages: Message[];
-    historicalId: number | null;
+    readonly initialMessages: Message[];
+    readonly historicalId: number | null;
 }) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [userInput, setUserInput] = useState<string>("");
@@ -165,7 +165,7 @@ export function Prompt({
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                             placeholder="Entrez votre texte ici..."
                             className="input-field"
                             disabled={!historicalId}
