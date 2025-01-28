@@ -17,7 +17,5 @@ export const createMessagesTable = async () => {
         console.log('Table Messages créée ou déjà existante.');
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
-    } finally {
-
     }
 };
