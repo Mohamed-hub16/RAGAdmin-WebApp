@@ -12,6 +12,30 @@ interface Message {
     text: string;
 }
 
+interface CodeBlockProps {
+    inline?: boolean;
+    className?: string;
+    children: React.ReactNode;
+}
+
+const CodeBlock: React.FC<CodeBlockProps> = ({ inline, className, children, ...props }) => {
+    const match = /language-(\w+)/.exec(className ?? "");
+    return !inline && match ? (
+        <SyntaxHighlighter
+            style={vscDarkPlus}
+            language={match[1]}
+            PreTag="div"
+            {...props}
+        >
+            {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+    ) : (
+        <code className={className} {...props}>
+            {children}
+        </code>
+    );
+};
+
 export function Prompt({
                            initialMessages,
                            historicalId,
@@ -132,23 +156,7 @@ export function Prompt({
                                 {message.sender === "bot" ? (
                                     <ReactMarkdown
                                         components={{
-                                            code({ node, inline, className, children, ...props }: any) {
-                                                const match = /language-(\w+)/.exec(className || "");
-                                                return !inline && match ? (
-                                                    <SyntaxHighlighter
-                                                        style={vscDarkPlus}
-                                                        language={match[1]}
-                                                        PreTag="div"
-                                                        {...props}
-                                                    >
-                                                        {String(children).replace(/\n$/, "")}
-                                                    </SyntaxHighlighter>
-                                                ) : (
-                                                    <code className={className} {...props}>
-                                                        {children}
-                                                    </code>
-                                                );
-                                            }
+                                            code: CodeBlock
                                         }}
                                     >
                                         {message.text}
