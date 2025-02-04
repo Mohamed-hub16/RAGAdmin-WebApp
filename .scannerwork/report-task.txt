@@ -1,0 +1,6 @@
+projectKey=KOUMOULOX-FRONT
+serverUrl=http://localhost:9000
+serverVersion=25.1.0.102122
+dashboardUrl=http://localhost:9000/dashboard?id=KOUMOULOX-FRONT
+ceTaskId=83416d2e-0ec9-4350-a230-ff19418f6567
+ceTaskUrl=http://localhost:9000/api/ce/task?id=83416d2e-0ec9-4350-a230-ff19418f6567
