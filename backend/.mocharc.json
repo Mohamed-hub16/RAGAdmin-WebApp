@@ -1,0 +1,7 @@
+{
+    "require": ["esm"],
+    "extension": ["js"],
+    "spec": "tests/**/*.test.js",
+    "watch-files": ["tests/**/*.js"],
+    "recursive": true
+}

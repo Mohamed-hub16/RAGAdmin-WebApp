@@ -1,24 +1,44 @@
 import React, { useState, useRef, useEffect } from "react";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 import Envoyer from "../../../res/envoyer.png";
 import "../../../css/main-interface/prompt.css";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // @ts-ignore
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { API_BACK_IP } from "../../../global";
 
 interface Message {
+    id: string;
     sender: "user" | "bot";
     text: string;
 }
 
+interface CodeBlockProps {
+    inline: boolean;
+    className?: string;
+    children: React.ReactNode;
+}
+
+const CodeBlock: React.FC<CodeBlockProps> = ({ inline, className, children, ...props }) => {
+    const match = /language-(\w+)/.exec(className ?? "");
+    return !inline && match ? (
+        <SyntaxHighlighter style={vscDarkPlus} language={match[1]} PreTag="div" {...props}>
+            {String(children).replace(/\n$/, "")}
+        </SyntaxHighlighter>
+    ) : (
+        <code className={className} {...props}>
+            {children}
+        </code>
+    );
+};
+
 export function Prompt({
-                           initialMessages,
-                           historicalId,
-                       }: {
+    initialMessages,
+    historicalId,
+}: Readonly<{
     initialMessages: Message[];
     historicalId: number | null;
-}) {
+}>) {
     const [messages, setMessages] = useState<Message[]>([]);
     const [userInput, setUserInput] = useState<string>("");
     const [isBotTyping, setIsBotTyping] = useState<boolean>(false);
@@ -29,11 +49,7 @@ export function Prompt({
     };
 
     useEffect(() => {
-        if (historicalId) {
-            setMessages(initialMessages || []);
-        } else {
-            setMessages([]); // Réinitialise les messages quand aucun chat n'est ouvert
-        }
+        setMessages(historicalId ? initialMessages : []);
     }, [initialMessages, historicalId]);
 
     useEffect(() => {
@@ -42,37 +58,24 @@ export function Prompt({
 
     const saveMessageToDatabase = async (sender: "user" | "bot", text: string) => {
         if (!historicalId) return;
-
         try {
             const response = await fetch(`http://${API_BACK_IP}:5000/api/chats/messages`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    historicalId,
-                    sender,
-                    content: text,
-                }),
+                body: JSON.stringify({ historicalId, sender, content: text }),
             });
-
-            if (!response.ok) {
-                throw new Error("Erreur lors de l'enregistrement du message.");
-            }
+            if (!response.ok) throw new Error("Erreur lors de l'enregistrement du message.");
         } catch (error) {
             console.error(error);
         }
     };
 
-    // Requête POST pour envoyer le prompt et obtenir la réponse
     const fetchLLMResponse = async (prompt: string): Promise<string> => {
         try {
             const response = await fetch(`http://${API_BACK_IP}:8000/${encodeURIComponent(prompt)}`, {
-                method: "POST"
+                method: "POST",
             });
-
-            if (!response.ok) {
-                throw new Error("Erreur lors de la récupération de la réponse du LLM.");
-            }
-
+            if (!response.ok) throw new Error("Erreur lors de la récupération de la réponse du LLM.");
             const data = await response.json();
             return data.response.data;
         } catch (error) {
@@ -84,8 +87,7 @@ export function Prompt({
     const handleSendMessage = async () => {
         if (!userInput.trim() || isBotTyping || !historicalId) return;
 
-        const userMessage = { sender: "user", text: userInput };
-        // @ts-ignore
+        const userMessage: Message = { id: crypto.randomUUID(), sender: "user", text: userInput };
         setMessages((prevMessages) => [...prevMessages, userMessage]);
         await saveMessageToDatabase("user", userInput);
 
@@ -94,9 +96,8 @@ export function Prompt({
 
         try {
             const botResponseText = await fetchLLMResponse(userInput);
-            const botMessage = { sender: "bot", text: botResponseText };
+            const botMessage: Message = { id: crypto.randomUUID(), sender: "bot", text: botResponseText };
 
-            // @ts-ignore
             setMessages((prevMessages) => [...prevMessages, botMessage]);
             await saveMessageToDatabase("bot", botResponseText);
         } catch (error) {
@@ -106,7 +107,7 @@ export function Prompt({
         }
     };
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter" && !isBotTyping) {
             handleSendMessage();
         }
@@ -117,40 +118,18 @@ export function Prompt({
             {!historicalId ? (
                 <div className="no-chat-message">
                     <h2>Aucun chat d'ouvert !</h2>
-                    <span>Ouvrez un nouveau chat ou créez en-un. </span>
+                    <span>Ouvrez un nouveau chat ou créez-en un.</span>
                 </div>
             ) : (
                 <>
                     <div className="chat-messages">
-                        {messages.map((message, index) => (
+                        {messages.map((message) => (
                             <div
-                                key={index}
-                                className={`message ${
-                                    message.sender === "user" ? "user-message" : "bot-message"
-                                }`}
+                                key={message.id}
+                                className={`message ${message.sender === "user" ? "user-message" : "bot-message"}`}
                             >
                                 {message.sender === "bot" ? (
-                                    <ReactMarkdown
-                                        components={{
-                                            code({ node, inline, className, children, ...props }: any) {
-                                                const match = /language-(\w+)/.exec(className || "");
-                                                return !inline && match ? (
-                                                    <SyntaxHighlighter
-                                                        style={vscDarkPlus}
-                                                        language={match[1]}
-                                                        PreTag="div"
-                                                        {...props}
-                                                    >
-                                                        {String(children).replace(/\n$/, "")}
-                                                    </SyntaxHighlighter>
-                                                ) : (
-                                                    <code className={className} {...props}>
-                                                        {children}
-                                                    </code>
-                                                );
-                                            }
-                                        }}
-                                    >
+                                    <ReactMarkdown components={{ code: CodeBlock }}>
                                         {message.text}
                                     </ReactMarkdown>
                                 ) : (
@@ -165,7 +144,7 @@ export function Prompt({
                             type="text"
                             value={userInput}
                             onChange={(e) => setUserInput(e.target.value)}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyDown}
                             placeholder="Entrez votre texte ici..."
                             className="input-field"
                             disabled={!historicalId}

@@ -16,7 +16,5 @@ export const createHistoricalTable = async () => {
         console.log('Table Historical créée ou déjà existante.');
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
-    } finally {
-
     }
 };

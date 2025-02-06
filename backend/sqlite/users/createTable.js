@@ -15,7 +15,5 @@ export const createUserTable = async () => {
         console.log('Table User créée ou déjà existante.');
     } catch (err) {
         console.error('Erreur lors de la création de la table User:', err.message);
-    } finally {
-
     }
 };

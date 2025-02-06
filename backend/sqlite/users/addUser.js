@@ -9,9 +9,11 @@ export const addUser = async (identifiant, password) => {
 
     try {
         const stmt = db.prepare(insertSQL);
-        stmt.run(identifiant, password || '');
+        const result = stmt.run(identifiant, password || '');
         console.log(`Utilisateur ajouté : ${identifiant}`);
+        return result.lastInsertRowid; // Return the ID of the newly inserted user
     } catch (err) {
         console.error('Erreur lors de l’ajout de l’utilisateur:', err.message);
+        throw err; // Re-throw the error to handle it in the route
     }
 };

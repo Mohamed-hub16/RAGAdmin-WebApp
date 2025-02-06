@@ -38,10 +38,10 @@ export function UserHeader() {
         <div className="user-info">
             <img className="avatar-img" src={profileicon} alt="user-avatar" />
             <div className="user-details">
-                <span className="user-span">{username || "Chargement..."}</span>
-                <span className="deconnect-span" onClick={handleLogout}>
+                <span className="user-span">{username ?? "Chargement..."}</span>
+                <button className="deconnect-button" onClick={handleLogout}>
                     Se déconnecter
-                </span>
+                </button>
             </div>
         </div>
     );

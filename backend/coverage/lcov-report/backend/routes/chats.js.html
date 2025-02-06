@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.69% </span>
+                <span class="strong">82.69% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/52</span>
+                <span class='fraction'>43/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.69% </span>
+                <span class="strong">82.69% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/52</span>
+                <span class='fraction'>43/52</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,44 +123,44 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -175,44 +175,44 @@ import {addMessage} from "../sqlite/messages/addMessages.js";
 const router = express.Router();
 &nbsp;
 router.post('/', async (req, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >    const { userId } = req.body;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        const newChatId = await addHistorical(userId);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({</span>
-<span class="cstat-no" title="statement not covered" >            message: 'Nouveau chat créé avec succès.',</span>
-<span class="cstat-no" title="statement not covered" >            chat: { id: newChatId, description: `Chat #${newChatId}` },</span>
-<span class="cstat-no" title="statement not covered" >        });</span>
-<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+    const { userId } = req.body;
+&nbsp;
+    try {
+        const newChatId = await addHistorical(userId);
+&nbsp;
+        res.status(201).json({
+            message: 'Nouveau chat créé avec succès.',
+            chat: { id: newChatId, description: `Chat #${newChatId}` },
+        });
+    } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error(err.message);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ message: 'Erreur lors de la création d’un nouveau chat.' });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 });
 &nbsp;
 router.get('/:historicalId/messages', async (req, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >    const { historicalId } = req.params;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        const messages = await getMessagesByHistoricalId(historicalId);</span>
-<span class="cstat-no" title="statement not covered" >        res.status(200).json(messages);</span>
-<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+    const { historicalId } = req.params;
+&nbsp;
+    try {
+        const messages = await getMessagesByHistoricalId(historicalId);
+        res.status(200).json(messages);
+    } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error(err.message);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erreur lors de la récupération des messages.' });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 });
 &nbsp;
 router.post('/messages', async (req, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >    const { historicalId, sender, content } = req.body;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (!historicalId || !sender || !content) {</span>
-<span class="cstat-no" title="statement not covered" >        return res.status(400).json({ error: 'Tous les champs sont obligatoires.' });</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        await addMessage(historicalId, sender, content);</span>
-<span class="cstat-no" title="statement not covered" >        res.status(201).json({ message: 'Message ajouté avec succès.' });</span>
-<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+    const { historicalId, sender, content } = req.body;
+&nbsp;
+    if (!historicalId || !sender || !content) {
+        return res.status(400).json({ error: 'Tous les champs sont obligatoires.' });
+    }
+&nbsp;
+    try {
+        await addMessage(historicalId, sender, content);
+        res.status(201).json({ message: 'Message ajouté avec succès.' });
+    } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error(err.message);</span>
 <span class="cstat-no" title="statement not covered" >        res.status(500).json({ error: 'Erreur lors de l’ajout du message.' });</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
@@ -226,7 +226,7 @@ export default router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-06T12:13:56.786Z
+                at 2025-02-06T14:13:08.220Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

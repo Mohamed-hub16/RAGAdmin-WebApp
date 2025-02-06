@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/16</span>
+                <span class='fraction'>14/16</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">66.66% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Branches</span>
+                <span class="quiet">Functions</span>
                 <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/16</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -82,32 +82,32 @@
 <a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import initDatabase from "../config.js";
 &nbsp;
-export const addMessage = <span class="fstat-no" title="function not covered" >(historicalId, sender, content) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const db = initDatabase();</span>
-<span class="cstat-no" title="statement not covered" >    const stmt = db.prepare(`</span>
-<span class="cstat-no" title="statement not covered" >        INSERT INTO Messages (historical_id, sender, content, sent_at)</span>
-<span class="cstat-no" title="statement not covered" >        VALUES (?, ?, ?, datetime('now'));</span>
-<span class="cstat-no" title="statement not covered" >    `);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >        stmt.run(historicalId, sender, content);</span>
-<span class="cstat-no" title="statement not covered" >        console.log(`Message ajouté à l'historique ID : ${historicalId}`);</span>
-<span class="cstat-no" title="statement not covered" >    } catch (err) {</span>
+export const addMessage = (historicalId, sender, content) =&gt; {
+    const db = initDatabase();
+    const stmt = db.prepare(`
+        INSERT INTO Messages (historical_id, sender, content, sent_at)
+        VALUES (?, ?, ?, datetime('now'));
+    `);
+&nbsp;
+    try {
+        stmt.run(historicalId, sender, content);
+        console.log(`Message ajouté à l'historique ID : ${historicalId}`);
+    } <span class="branch-0 cbranch-no" title="branch not covered" >catch (err) {</span>
 <span class="cstat-no" title="statement not covered" >        console.error('Erreur lors de l’ajout du message:', err.message);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 };
@@ -118,7 +118,7 @@ export const addMessage = <span class="fstat-no" title="function not covered" >(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-02-06T12:13:56.786Z
+                at 2025-02-06T14:13:08.220Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

@@ -25,6 +25,7 @@ async function verifyPassword(password, hashedPassword) {
         });
     });
 }
+
 router.post('/register', async (req, res) => {
     const { identifiant, password } = req.body;
 
@@ -36,16 +37,23 @@ router.post('/register', async (req, res) => {
 
         const hashedPassword = await hashPassword(password);
 
-        await addUser(identifiant, hashedPassword);
-        res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
+        const userId = await addUser(identifiant, hashedPassword);
+        res.status(201).json({ 
+            message: 'Utilisateur enregistré avec succès.',
+            user: { id: userId, identifiant }
+        });
     } catch (err) {
         console.error(err.message);
-        res.status(500).json({ message: 'Erreur lors de l’inscription.' });
+        res.status(500).json({ message: "Erreur lors de l'inscription." });
     }
 });
 
 router.post('/login', async (req, res) => {
     const { identifiant, password } = req.body;
+
+    if (!identifiant || !password) {
+        return res.status(400).json({ message: 'Identifiant et mot de passe requis.' });
+    }
 
     try {
         const user = await getUserByIdentifiant(identifiant);

@@ -9,12 +9,20 @@
     "build": "npm run build:front",
     "start:front": "cd rag-webapp && npm run start",
     "start:back": "cd backend && HOST=0.0.0.0 PORT=5000 node app.js",
-    "start": "npm run start:front & npm run start:back"
+    "start": "npm run start:front & npm run start:back",
+    "test": "cd backend && npm test"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "typescript": "^5.6.3"
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0",
+    "typescript": "^5.6.3",
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "http-server": "^14.1.1",

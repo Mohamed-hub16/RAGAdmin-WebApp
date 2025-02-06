@@ -4,12 +4,12 @@ import "../../../css/main-interface/historical.css";
 import { API_BACK_IP } from "../../../global";
 
 export function Historical({
-                               userId,
-                               onChatSelected,
-                           }: {
+    userId,
+    onChatSelected,
+}: Readonly<{
     userId: number;
     onChatSelected: (historicalId: number, messages: { sender: "user" | "bot"; text: string }[]) => void;
-}) {
+}>) {
     const [chats, setChats] = useState<{ id: number; label: string }[]>([]);
     const [activeChatId, setActiveChatId] = useState<number | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -22,12 +22,10 @@ export function Historical({
 
             try {
                 const response = await fetch(`http://${API_BACK_IP}:5000/api/historicals/${userId}`);
-
                 const data = await response.json();
 
                 if (data.message && data.message === "Aucun historique trouvé.") {
                     setChats([]);
-                    setError(null);
                 } else if (Array.isArray(data) && data.length > 0) {
                     const formattedChats = data.map((chat: { id: number; created_at: string }) => ({
                         id: chat.id,
@@ -38,7 +36,8 @@ export function Historical({
                     setError("Aucun historique trouvé.");
                 }
             } catch (error: any) {
-                setError(error.message);
+                setError("Une erreur est survenue. Veuillez réessayer.");
+                console.error(error.message);
             } finally {
                 setIsLoading(false);
             }
@@ -47,15 +46,15 @@ export function Historical({
         fetchChats();
     }, [userId]);
 
-
     const handleChatClick = async (chatId: number) => {
         setActiveChatId(chatId);
-
         const response = await fetch(`http://${API_BACK_IP}:5000/api/chats/${chatId}/messages`);
+
         if (!response.ok) {
             console.error("Erreur lors de la récupération des messages");
             return;
         }
+
         const messages = await response.json();
         onChatSelected(chatId, messages);
     };
@@ -66,9 +65,7 @@ export function Historical({
         try {
             const response = await fetch(`http://${API_BACK_IP}:5000/api/chats`, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ userId }),
             });
 
@@ -77,10 +74,7 @@ export function Historical({
             }
 
             const data = await response.json();
-            const newChat = {
-                id: data.chat.id,
-                label: `New chat- Créé maintenant`,
-            };
+            const newChat = { id: data.chat.id, label: `New chat - Créé maintenant` };
 
             setChats((prevChats) => [...prevChats, newChat]);
             setActiveChatId(newChat.id);
@@ -95,7 +89,7 @@ export function Historical({
             onChatSelected(newChat.id, messages);
         } catch (error: any) {
             console.error(error.message);
-            setError(error.message);
+            setError("Une erreur est survenue lors de la création du chat.");
         }
     };
 
@@ -103,22 +97,58 @@ export function Historical({
         setError(null);
 
         try {
-            const response = await fetch(`http://${API_BACK_IP}:5000/api/historicals/${chatId}`, {
-                method: "DELETE",
-            });
+            const response = await fetch(`http://${API_BACK_IP}:5000/api/historicals/${chatId}`, { method: "DELETE" });
 
             if (!response.ok) {
                 throw new Error("Erreur lors de la suppression du chat");
             }
 
             setChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
-
-            window.location.reload();
+            if (activeChatId === chatId) {
+                setActiveChatId(null);
+            }
         } catch (error: any) {
-            setError(error.message);
+            setError("Une erreur est survenue lors de la suppression du chat.");
             console.error("Erreur lors de la suppression du chat:", error.message);
         }
     };
+
+    let chatContent;
+    if (error) {
+        chatContent = <div className="error-message">{error}</div>;
+    } else if (isLoading) {
+        chatContent = <div className="loading-message">Chargement...</div>;
+    } else if (chats.length === 0) {
+        chatContent = (
+            <div className="no-chats-message">
+                <h2>Oups ! 😭</h2>
+                <p>Vous n'avez pas de chat, créez-en un.</p>
+            </div>
+        );
+    } else {
+        chatContent = (
+            <div className="historical-chats">
+                {chats.map((chat) => (
+                    <button
+                        key={chat.id}
+                        className={`chat-item ${activeChatId === chat.id ? "selected" : ""}`}
+                        onClick={() => handleChatClick(chat.id)}
+                    >
+                        {chat.label}
+                        <button
+                            className="delete-chat-button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteChat(chat.id);
+                            }}
+                        >
+                            Supprimer
+                        </button>
+                    </button>
+                ))}
+            </div>
+        );
+    }
 
     return (
         <div className="historical-container">
@@ -128,38 +158,7 @@ export function Historical({
                     Nouveau chat
                 </button>
             </div>
-
-            {error && <div className="error-message">{error}</div>}
-
-            {chats.length === 0 && !isLoading && !error ? (
-                <div className="no-chats-message">
-                    <h2>Oups ! 😭</h2>
-                    <p>Vous n'avez pas de chat, créez-en un.</p>
-                </div>
-            ) : isLoading ? (
-                <div className="loading-message">Chargement...</div>
-            ) : (
-                <div className="historical-chats">
-                    {chats.map((chat) => (
-                        <div
-                            key={chat.id}
-                            className={`chat-item ${activeChatId === chat.id ? "selected" : ""}`}
-                            onClick={() => handleChatClick(chat.id)}
-                        >
-                            {chat.label}
-                            <button
-                                className="delete-chat-button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleDeleteChat(chat.id);
-                                }}
-                            >
-                                Supprimer
-                            </button>
-                        </div>
-                    ))}
-                </div>
-            )}
+            {chatContent}
         </div>
     );
 }
