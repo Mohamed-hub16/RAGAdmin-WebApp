@@ -10,7 +10,7 @@ import historicalsRoutes from './routes/historicals.js';
 import cors from 'cors';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -22,10 +22,21 @@ app.use('/api/chats', chatsRoutes);
 app.use('/api/user', usersRoutes);
 app.use('/api/historicals', historicalsRoutes);
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
+
+// Initialize database tables
 createUserTable();
 createMessagesTable();
 createHistoricalTable();
 
-app.listen(PORT, () => {
-    console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+// Start server only if this file is run directly
+if (process.env.NODE_ENV !== 'test') {
+    app.listen(PORT, () => {
+        console.log(`Serveur démarré sur http://localhost:${PORT}`);
+    });
+}
+
+export default app;
